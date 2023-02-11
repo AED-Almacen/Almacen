@@ -3,9 +3,9 @@ package model;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class NutQueries {
+public class PieceQueries {
 
-    public void createNut(float price, String desc, String codNut) {
+    public void createPiece(float price, String desc, String codPiece) {
         Connection conn = ConnectionPool.getInstance().getConnection();
         String sql = "INSERT INTO pieza (precio, descripcion, cod_pieza) VALUES (?, ?, ?) ";
 
@@ -13,7 +13,7 @@ public class NutQueries {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setFloat(1, price);
             ps.setString(2, desc);
-            ps.setString(3, codNut);
+            ps.setString(3, codPiece);
             ps.execute();
 
         } catch (SQLException e) {
@@ -23,7 +23,7 @@ public class NutQueries {
         }
     }
 
-    public Nut readNut(int id) {
+    public Piece readPiece(int id) {
         Connection conn = ConnectionPool.getInstance().getConnection();
         String sql = "SELECT * FROM pieza WHERE id = ?";
 
@@ -33,11 +33,8 @@ public class NutQueries {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                Float price = rs.getFloat("precio");
-                String desc = rs.getString("descripcion");
-                String codNut = rs.getString("cod_pieza");
-
-                return new Nut(id, price, desc, codNut);
+                return new Piece(id, rs.getFloat("precio"),
+                        rs.getString("descripcion"), rs.getString("cod_pieza"));
             }
 
 
@@ -50,7 +47,7 @@ public class NutQueries {
         return null;
     }
 
-    public ArrayList<Nut> readNuts() {
+    public ArrayList<Piece> readPieces() {
         Connection conn = ConnectionPool.getInstance().getConnection();
         String sql = "SELECT * FROM pieza";
 
@@ -58,17 +55,14 @@ public class NutQueries {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            int i = 0;
-            ArrayList<Nut> nuts = new ArrayList<>();
+            ArrayList<Piece> pieces = new ArrayList<>();
 
             while (rs.next()) {
-                nuts.add(new Nut(rs.getInt("id"), rs.getFloat("precio"),
+                pieces.add(new Piece(rs.getInt("id"), rs.getFloat("precio"),
                         rs.getString("descripcion"), rs.getString("cod_pieza")));
-
-                i++;
             }
 
-            if (nuts.size() > 0) return nuts;
+            if (pieces.size() > 0) return pieces;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -78,7 +72,7 @@ public class NutQueries {
         return null;
     }
 
-    public void updateNut(int id, float price, String desc, String codNut) {
+    public void updatePiece(int id, float price, String desc, String codPiece) {
         Connection conn = ConnectionPool.getInstance().getConnection();
         String sql = "UPDATE pieza SET precio = ?, descripcion = ?, cod_pieza = ? WHERE id = ?";
 
@@ -86,7 +80,7 @@ public class NutQueries {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setFloat(1, price);
             ps.setString(2, desc);
-            ps.setString(3, codNut);
+            ps.setString(3, codPiece);
             ps.setInt(4, id);
             ps.execute();
 
@@ -97,7 +91,7 @@ public class NutQueries {
         }
     }
 
-    public void deleteNut(int id) {
+    public void deletePiece(int id) {
         Connection conn = ConnectionPool.getInstance().getConnection();
         String sql = "DELETE FROM pieza WHERE id = ?";
 

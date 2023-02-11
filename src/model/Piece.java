@@ -1,16 +1,16 @@
 package model;
 
-public class Nut {
+public class Piece {
     private int id;
     private Float price;
     private String desc;
-    private String codNut;
+    private String codPiece;
 
-    public Nut(int id, Float price, String desc, String codNut) {
+    public Piece(int id, Float price, String desc, String codPiece) {
         this.id = id;
         this.price = price;
         this.desc = desc;
-        this.codNut = codNut;
+        this.codPiece = codPiece;
     }
 
     public int getId() {
@@ -37,11 +37,11 @@ public class Nut {
         this.desc = desc;
     }
 
-    public String getCodNut() {
-        return codNut;
+    public String getCodPiece() {
+        return codPiece;
     }
 
-    public void setCodNut(String codNut) {
-        this.codNut = codNut;
+    public void setCodPiece(String codPiece) {
+        this.codPiece = codPiece;
     }
 }
