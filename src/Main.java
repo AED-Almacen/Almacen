@@ -1,21 +1,29 @@
 import model.ConnectionPool;
+import model.Nut;
+import model.NutQueries;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Connection conn = ConnectionPool.getInstance().getConnection();
+        NutQueries queries = new NutQueries();
 
-        if (conn == null) {
-            System.out.println("Connection ERROR!");
-        } else {
-            System.out.println("Connection Successfully");
+        queries.createNut(2.50f, "test1", "nut1");
+        queries.createNut(2.50f, "test2", "nut2");
 
-            boolean success = ConnectionPool.getInstance().closeConnection(conn);
+        int i = 0;
 
-            if (success) {
-                System.out.println("Connection closed");
-            }
+        ArrayList<Nut> nuts = queries.readNuts();
+
+        while (i < nuts.size()) {
+            System.out.println(nuts.get(i).getId());
+            i++;
         }
+
+        System.out.println(queries.readNut(1).getCodNut());
+
+        queries.deleteNut(1);
+        queries.deleteNut(2);
     }
 }

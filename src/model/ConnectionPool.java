@@ -12,9 +12,9 @@ public class ConnectionPool {
         private ConnectionPool() {
             this.basicDataSource = new BasicDataSource();
             this.basicDataSource.setDriverClassName("org.postgresql.Driver");
-            this.basicDataSource.setUsername("username");
-            this.basicDataSource.setPassword("password");
-            this.basicDataSource.setUrl("jdbc:postgresql://localhost:5432/db");
+            this.basicDataSource.setUsername("postgres");
+            this.basicDataSource.setPassword("daw1234");
+            this.basicDataSource.setUrl("jdbc:postgresql://localhost:5432/almacen");
         }
 
         public static ConnectionPool getInstance() {
