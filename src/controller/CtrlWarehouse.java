@@ -23,9 +23,15 @@ public class CtrlWarehouse implements ActionListener {
         this.warehouse.getTextArea1().setText("");
 
         ArrayList<model.Warehouse> warehouses = queries.readWarehouses();
-        for (model.Warehouse warehouse : warehouses) {
-            this.warehouse.getTextArea1().append(warehouse.toString()+"\n");
+
+        if(warehouses == null) {
+            this.warehouse.getTextArea1().append("No hay almacenes en la base de datos.");
+        }else{
+            for (model.Warehouse warehouse : warehouses) {
+                this.warehouse.getTextArea1().append(warehouse.toString()+"\n");
+            }
         }
+
     }
     public CtrlWarehouse() {
         this.warehouse = new Warehouse();
@@ -36,9 +42,6 @@ public class CtrlWarehouse implements ActionListener {
         this.warehouse.getDropBtn().addActionListener(this);
         this.warehouse.getUpdateBtn().addActionListener(this);
         readWarehouse();
-
-
-
     }
 
     @Override
