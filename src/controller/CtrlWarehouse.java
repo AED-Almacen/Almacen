@@ -1,11 +1,11 @@
 package controller;
 
-import model.StokeQueries;
 import model.WarehouseQueries;
 import view.Warehouse;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class CtrlWarehouse implements ActionListener {
     private Warehouse warehouse;
@@ -14,7 +14,7 @@ public class CtrlWarehouse implements ActionListener {
     private void windowConfig() {
         this.warehouse.setTitle("Warehouse");
         this.warehouse.setLocationRelativeTo(null);
-        this.warehouse.setSize(400, 400);
+        this.warehouse.setSize(600, 600);
         this.warehouse.setVisible(true);
     }
 
@@ -24,6 +24,13 @@ public class CtrlWarehouse implements ActionListener {
 
         this.queries = new WarehouseQueries();
         this.warehouse.getWareHouseButton().addActionListener(this);
+
+
+        ArrayList<model.Warehouse> warehouses = queries.readWarehouses();
+        for (model.Warehouse warehouse : warehouses) {
+            this.warehouse.getTextArea1().append(warehouse.toString()+"\n");
+        }
+
     }
 
     @Override
