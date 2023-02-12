@@ -4,7 +4,9 @@ import javax.swing.*;
 
 public class Warehouse extends JFrame {
     private JPanel window;
-    private JButton wareHouseButton;
+    private JButton addBtn;
+    private JButton dropBtn;
+    private JButton updateBtn;
     private JTextArea textArea1;
     private JTextField idText;
     private JTextField descriptionText;
@@ -25,7 +27,9 @@ public class Warehouse extends JFrame {
         return this.window;
     }
 
-    public JButton getWareHouseButton() {return wareHouseButton;}
+    public JButton getAddBtn() {return addBtn;}
+    public JButton getDropBtn() {return dropBtn;}
+    public JButton getUpdateBtn() {return updateBtn;}
 
     public JTextArea getTextArea1() {
         return textArea1;

@@ -68,7 +68,7 @@
           <text value="Dirección"/>
         </properties>
       </component>
-      <component id="d287b" class="javax.swing.JButton" binding="wareHouseButton" default-binding="true">
+      <component id="d287b" class="javax.swing.JButton" binding="addBtn">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -76,7 +76,7 @@
           <text value="Añadir"/>
         </properties>
       </component>
-      <component id="ad0ad" class="javax.swing.JButton" default-binding="true">
+      <component id="ad0ad" class="javax.swing.JButton" binding="updateBtn">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -84,7 +84,7 @@
           <text value="Actualizar"/>
         </properties>
       </component>
-      <component id="59c7c" class="javax.swing.JButton" default-binding="true">
+      <component id="59c7c" class="javax.swing.JButton" binding="dropBtn">
         <constraints>
           <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
