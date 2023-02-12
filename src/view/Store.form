@@ -17,7 +17,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="3f4e7" class="javax.swing.JButton" binding="btnStore">
+          <component id="3f4e7" class="javax.swing.JButton" binding="btnWarehouse">
             <constraints/>
             <properties>
               <alignmentY value="0.5"/>

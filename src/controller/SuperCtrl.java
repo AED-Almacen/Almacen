@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 public class SuperCtrl implements ActionListener {
     private Store store;
-    private Warehouse warehouse;
 
     private void windowConfig() {
         this.store.setTitle("Store");
@@ -21,16 +20,22 @@ public class SuperCtrl implements ActionListener {
         this.store = new Store();
         windowConfig();
 
-        this.store.getBtnStore().addActionListener(this);
+        this.store.getBtnWarehouse().addActionListener(this);
         this.store.getBtnShelf().addActionListener(this);
         this.store.getBtnStoke().addActionListener(this);
         this.store.getBtnPiece().addActionListener(this);
-
-        this.warehouse = new Warehouse();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.store.getWindow().add(this.warehouse.getPanel());
+        if (e.getSource() == this.store.getBtnWarehouse()) {
+            new CtrlWarehouse();
+        } else if (e.getSource() == this.store.getBtnShelf()){
+            new CtrlShelf();
+        } else if (e.getSource() == this.store.getBtnStoke()){
+            new CtrlStoke();
+        } else if (e.getSource() == this.store.getBtnPiece()){
+            new CtrlPiece();
+        }
     }
 }

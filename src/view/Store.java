@@ -1,13 +1,11 @@
 package view;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Store extends JFrame {
     private JPanel window;
     private JPanel nav;
-    private JButton btnStore;
+    private JButton btnWarehouse;
     private JButton btnShelf;
     private JButton btnStoke;
     private JButton btnPiece;
@@ -25,8 +23,8 @@ public class Store extends JFrame {
         return this.nav;
     }
 
-    public JButton getBtnStore() {
-        return this.btnStore;
+    public JButton getBtnWarehouse() {
+        return this.btnWarehouse;
     }
 
     public JButton getBtnShelf() {

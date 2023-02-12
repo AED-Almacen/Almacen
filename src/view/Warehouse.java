@@ -2,11 +2,20 @@ package view;
 
 import javax.swing.*;
 
-public class Warehouse {
-    private JPanel panel;
-    private JButton hechoButton;
+public class Warehouse extends JFrame {
+    private JPanel window;
+    private JButton wareHouseButton;
 
-    public JPanel getPanel() {
-        return panel;
+    public Warehouse() {
+        super();
+        setContentPane(window);
+    }
+
+    public JPanel getWindow() {
+        return this.window;
+    }
+
+    public JButton getWareHouseButton() {
+        return wareHouseButton;
     }
 }
