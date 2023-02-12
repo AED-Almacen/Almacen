@@ -25,7 +25,7 @@ public class CtrlStoke {
         windowConfig();
 
         this.queries = new StokeQueries();
-        //this.stoke.getStokeButton().addActionListener(this);
+        readStoke();
     }
 
     private void readStoke() {
