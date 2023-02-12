@@ -66,14 +66,21 @@ public class CtrlPiece implements ActionListener {
             }
         } else if (e.getSource() == this.piece.getDropBtn()) {
             try {
-                this.queries.deletePiece(Integer.parseInt(piece.getIdText().getText()));
-                readPieces();
+                int id = Integer.parseInt(piece.getIdText().getText());
+
+                if (this.queries.readPiece(id) == null) {
+                    JOptionPane.showMessageDialog(null,
+                            "Error al borrar pieza. El id no es correcto.");
+                } else {
+                    this.queries.deletePiece(id);
+                    readPieces();
+                }
+
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
                         "Error al borrar pieza. Debes especificar el id de la pieza a borrar.");
             }
         } else if (e.getSource() == this.piece.getUpdateBtn()) {
-
             try {
                 int id = Integer.parseInt(piece.getIdText().getText());
                 float price = Float.parseFloat(piece.getPriceText().getText());
@@ -83,6 +90,9 @@ public class CtrlPiece implements ActionListener {
                 if (codPiece.equals("")) {
                     JOptionPane.showMessageDialog(null,
                             "Error al añadir pieza. La pieza debe tener precio y código.");
+                } else if (this.queries.readPiece(id) == null)  {
+                    JOptionPane.showMessageDialog(null,
+                            "Error al actualizar la pieza. El id no es correcto.");
                 } else {
                     this.queries.updatePiece(id, price, desc, codPiece);
                     readPieces();
