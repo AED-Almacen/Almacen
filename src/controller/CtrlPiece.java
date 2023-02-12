@@ -23,14 +23,18 @@ public class CtrlPiece implements ActionListener {
         this.piece.getTextArea().setText("");
 
         ArrayList<model.Piece> pieces = this.queries.readPieces();
-        int i = 0;
 
-        while(i < pieces.size()) {
-            model.Piece piece = pieces.get(i);
-            this.piece.getTextArea().append(
-                    piece.getId() + ". \t" + piece.getPrice() + "\t" +
-                            piece.getDesc() + "\t" + piece.getCodPiece() + "\n");
-            i++;
+        if(pieces == null) {
+            this.piece.getTextArea().append("No hay piezas en la base de datos.");
+        }else{
+            int i = 0;
+            while(i < pieces.size()) {
+                model.Piece piece = pieces.get(i);
+                this.piece.getTextArea().append(
+                        piece.getId() + ". \t" + piece.getPrice() + "\t" +
+                                piece.getDesc() + "\t" + piece.getCodPiece() + "\n");
+                i++;
+            }
         }
     }
 
