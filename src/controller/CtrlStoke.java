@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class CtrlStoke implements ActionListener {
+public class CtrlStoke {
     private Stoke stoke;
     private StokeQueries queries;
 
@@ -25,7 +25,7 @@ public class CtrlStoke implements ActionListener {
         windowConfig();
 
         this.queries = new StokeQueries();
-        this.stoke.getStokeButton().addActionListener(this);
+        //this.stoke.getStokeButton().addActionListener(this);
     }
 
     private void readStoke() {
@@ -34,7 +34,7 @@ public class CtrlStoke implements ActionListener {
         ArrayList<model.Stoke> stokes = queries.readStokes();
 
         if(stokes == null) {
-            this.stoke.getTextArea1Stoke().append("No hay almacenes en la base de datos.");
+            this.stoke.getTextArea1Stoke().append("No hay Stoke en la base de datos.");
         }else{
             for (model.Stoke stoke : stokes) {
                 this.stoke.getTextArea1Stoke().append(stoke.toString()+"\n");
@@ -43,8 +43,4 @@ public class CtrlStoke implements ActionListener {
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("Stoke");
-    }
 }
