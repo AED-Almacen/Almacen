@@ -10,6 +10,8 @@ public class PieceQueries {
         Connection conn = ConnectionPool.getInstance().getConnection();
         String sql = "INSERT INTO pieza (precio, descripcion, cod_pieza) VALUES (?, ?, ?) ";
 
+
+
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setFloat(1, price);
