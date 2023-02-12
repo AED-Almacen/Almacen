@@ -2,10 +2,12 @@ package controller;
 
 import model.ShelfQueries;
 import model.StokeQueries;
+import model.Warehouse;
 import view.Stoke;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class CtrlStoke implements ActionListener {
     private Stoke stoke;
@@ -14,7 +16,7 @@ public class CtrlStoke implements ActionListener {
     private void windowConfig() {
         this.stoke.setTitle("Stoke");
         this.stoke.setLocationRelativeTo(null);
-        this.stoke.setSize(400, 400);
+        this.stoke.setSize(600, 600);
         this.stoke.setVisible(true);
     }
 
@@ -24,6 +26,21 @@ public class CtrlStoke implements ActionListener {
 
         this.queries = new StokeQueries();
         this.stoke.getStokeButton().addActionListener(this);
+    }
+
+    private void readStoke() {
+        this.stoke.getTextArea1Stoke().setText("");
+
+        ArrayList<model.Stoke> stokes = queries.readStokes();
+
+        if(stokes == null) {
+            this.stoke.getTextArea1Stoke().append("No hay almacenes en la base de datos.");
+        }else{
+            for (model.Stoke stoke : stokes) {
+                this.stoke.getTextArea1Stoke().append(stoke.toString()+"\n");
+            }
+        }
+
     }
 
     @Override
