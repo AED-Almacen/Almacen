@@ -109,12 +109,18 @@ public class CtrlShelf implements ActionListener {
                     return;
                 };
                 int id = Integer.parseInt(shelf.getIdText().getText());
-                int idWarehouse;
+                int idWarehouse = 0;
                 String codEstanteria = shelf.getCodShelfText().getText();
-                int warehouseCombo = shelf.getWarehouseCombo().getSelectedIndex();
-                idWarehouse = queriesWarehouse.readWarehouse(warehouseCombo).getId();
+                Object comboSelected = shelf.getWarehouseCombo().getSelectedItem();
 
-                if (codEstanteria.equals("") || warehouseCombo == 0) {
+                if(comboSelected != null){
+                    String warehouseCombo = comboSelected.toString().split("-")[0];
+                    int idSearch = Integer.parseInt(warehouseCombo);
+                    idWarehouse = queriesWarehouse.readWarehouse(idSearch).getId();
+                }
+
+
+                if (codEstanteria.equals("") || idWarehouse == 0) {
                     JOptionPane.showMessageDialog(null,
                             "Error al añadir estanteria. Debe rellenar todos los campos.");
                 } else {
@@ -123,7 +129,7 @@ public class CtrlShelf implements ActionListener {
                 }
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Error al actualizar el almacen. Debes especificar el id del almacen a actualizar.");
+                        "Error al actualizar. Debes especificar el id de la estanteria  a actualizar.");
             }
         }
     }

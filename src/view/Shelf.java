@@ -24,7 +24,7 @@ public class Shelf extends JFrame{
 
     public Shelf() {
         super();
-        this.window.setSize(1000, 1000);
+        this.window.setSize(1500, 1000);
         setContentPane(window);
     }
 
