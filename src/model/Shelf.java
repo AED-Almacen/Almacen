@@ -36,4 +36,9 @@ public class Shelf {
     public void setIdWarehouse(int idWarehouse) {
         this.idWarehouse = idWarehouse;
     }
+
+    @Override
+    public String toString() {
+        return "id:" + id +", Código Estanteria: " + codShelf +", Almacen: " + idWarehouse;
+    }
 }

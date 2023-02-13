@@ -44,7 +44,7 @@ public class CtrlShelf implements ActionListener {
             this.shelf.getTextArea1().append("No hay almacenes en la base de datos.");
         }else{
             for (model.Warehouse warehouse : warehouses) {
-                this.shelf.getWarehouseCombo().addItem(warehouse.getId());
+                this.shelf.getWarehouseCombo().addItem(warehouse.getId()+"-"+warehouse.getDesc());
             }
         }
     }
@@ -64,15 +64,18 @@ public class CtrlShelf implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.shelf.getAddBtn()) {
             try {
-                int idWarehouse;
+                int idWarehouse = 0;
                 String codEstanteria = shelf.getCodShelfText().getText();
-                int warehouseCombo = shelf.getWarehouseCombo().getSelectedIndex();
-                System.out.println(warehouseCombo);
+                Object comboSelected = shelf.getWarehouseCombo().getSelectedItem();
 
-                idWarehouse = queriesWarehouse.readWarehouse(warehouseCombo).getId();
-                System.out.println("idWarehouse" + idWarehouse);
+                if(comboSelected != null){
+                    String warehouseCombo = comboSelected.toString().split("-")[0];
+                    int idSearch = Integer.parseInt(warehouseCombo);
+                    idWarehouse = queriesWarehouse.readWarehouse(idSearch).getId();
+                }
 
-                if (codEstanteria.equals("") || warehouseCombo == 0) {
+
+                if (codEstanteria.equals("") || idWarehouse == 0) {
                     JOptionPane.showMessageDialog(null,
                             "Error al añadir estanteria. Debe rellenar todos los campos.");
                 } else {
