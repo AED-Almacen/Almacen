@@ -22,7 +22,7 @@ public class CtrlShelf implements ActionListener {
     private void windowConfig() {
         this.shelf.setTitle("Shelf");
         this.shelf.setLocationRelativeTo(null);
-        this.shelf.setSize(600, 600);
+        this.shelf.setSize(1000, 800);
         this.shelf.setVisible(true);
     }
 
