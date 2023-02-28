@@ -4,7 +4,6 @@ import javax.swing.*;
 
 public class Piece extends JFrame {
     private JPanel window;
-    private JTextArea textArea;
     private JTextField idText;
     private JTextField priceText;
     private JTextField descText;
@@ -12,19 +11,12 @@ public class Piece extends JFrame {
     private JButton addBtn;
     private JButton dropBtn;
     private JButton updateBtn;
+    private JTable table;
 
 
     public Piece() {
         super();
-        setContentPane(window);
-    }
-
-    public JPanel getWindow() {
-        return window;
-    }
-
-    public JTextArea getTextArea() {
-        return textArea;
+        setContentPane(this.window);
     }
 
     public JTextField getIdText() {
@@ -53,5 +45,9 @@ public class Piece extends JFrame {
 
     public JButton getUpdateBtn() {
         return updateBtn;
+    }
+
+    public JTable getTable() {
+        return table;
     }
 }
