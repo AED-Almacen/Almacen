@@ -12,6 +12,8 @@ public class Piece extends JFrame {
     private JButton dropBtn;
     private JButton updateBtn;
     private JTable table;
+    private JButton subPieceBtn;
+    private JScrollPane ScrollPane;
 
 
     public Piece() {
@@ -47,7 +49,12 @@ public class Piece extends JFrame {
         return updateBtn;
     }
 
+    public JButton getSubPieceBtn() {
+        return subPieceBtn;
+    }
+
     public JTable getTable() {
         return table;
     }
+
 }
