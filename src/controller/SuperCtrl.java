@@ -1,13 +1,12 @@
 package controller;
 
 import view.Store;
-import view.Warehouse;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SuperCtrl implements ActionListener {
-    private Store store;
+    private final Store store;
 
     private void windowConfig() {
         this.store.setTitle("Store");
