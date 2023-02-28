@@ -4,13 +4,14 @@ import model.PieceQueries;
 import view.Piece;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class CtrlPiece implements ActionListener {
-    private Piece piece;
-    private PieceQueries queries;
+    private final Piece piece;
+    private final PieceQueries queries;
 
     private void windowConfig() {
         this.piece.setTitle("Piezas");
@@ -20,22 +21,23 @@ public class CtrlPiece implements ActionListener {
     }
 
     private void readPieces() {
-        this.piece.getTextArea().setText("");
-
         ArrayList<model.Piece> pieces = this.queries.readPieces();
 
-        if(pieces == null) {
-            this.piece.getTextArea().append("No hay piezas en la base de datos.");
-        }else{
-            int i = 0;
-            while(i < pieces.size()) {
-                model.Piece piece = pieces.get(i);
-                this.piece.getTextArea().append(
-                        piece.getId() + ". \t" + piece.getPrice() + "\t" +
-                                piece.getDesc() + "\t" + piece.getCodPiece() + "\n");
-                i++;
-            }
+        Object[][] data = new Object[pieces.size()][];
+
+        for (int i = 0; i < pieces.size(); i++) {
+            data[i] = new String[]{
+                    String.valueOf(pieces.get(i).getId()),
+                    String.valueOf(pieces.get(i).getPrice()),
+                    String.valueOf(pieces.get(i).getDesc()),
+                    pieces.get(i).getCodPiece()
+            };
         }
+
+        this.piece.getTable().setModel(new DefaultTableModel(
+                data,
+                new String[]{"Id", "Precio", "Descripción", "Código"}
+        ));
     }
 
     public CtrlPiece() {
