@@ -11,11 +11,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class CtrlShelf implements ActionListener {
-    private Shelf shelf;
-    private ShelfQueries queries;
-
-    private Warehouse warehouse;
-    private WarehouseQueries queriesWarehouse;
+    private final Shelf shelf;
+    private final ShelfQueries queries;
+    private final WarehouseQueries queriesWarehouse;
 
 
 
@@ -32,17 +30,17 @@ public class CtrlShelf implements ActionListener {
         ArrayList<model.Shelf> shelves = queries.readShelves();
         ArrayList<model.Warehouse> warehouses = queriesWarehouse.readWarehouses();
 
-        if(shelves == null) {
+        if (shelves == null) {
             this.shelf.getTextArea1().append("No hay estanterias en la base de datos.");
-        }else{
+        } else {
             for (model.Shelf shelf : shelves) {
                 this.shelf.getTextArea1().append(shelves.toString()+"\n");
             }
         }
 
-        if(warehouses == null) {
+        if (warehouses == null) {
             this.shelf.getTextArea1().append("No hay almacenes en la base de datos.");
-        }else{
+        } else {
             for (model.Warehouse warehouse : warehouses) {
                 this.shelf.getWarehouseCombo().addItem(warehouse.getId()+"-"+warehouse.getDesc());
             }
@@ -57,7 +55,7 @@ public class CtrlShelf implements ActionListener {
         this.shelf.getAddBtn().addActionListener(this);
         this.shelf.getDropBtn().addActionListener(this);
         this.shelf.getUpdateBtn().addActionListener(this);
-        readShelf();
+        this.readShelf();
     }
 
     @Override
@@ -83,7 +81,6 @@ public class CtrlShelf implements ActionListener {
                     readShelf();
                 }
             } catch (Exception exception) {
-                System.out.println(exception);
                 JOptionPane.showMessageDialog(null,
                         "Error al añadir estanteria. el almacen debe tener descripcion y direccion.");
             }
