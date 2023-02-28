@@ -74,20 +74,6 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="ebead" class="javax.swing.JTextField" binding="codTex">
-        <constraints>
-          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="4" anchor="9" fill="0" indent="0" use-parent-layout="false">
-            <minimum-size width="150" height="-1"/>
-            <preferred-size width="100" height="30"/>
-            <maximum-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <maximumSize width="20" height="30"/>
-          <minimumSize width="10" height="30"/>
-          <text value=""/>
-        </properties>
-      </component>
       <component id="9eb97" class="javax.swing.JTextField" binding="priceText">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="2" hsize-policy="2" anchor="9" fill="0" indent="0" use-parent-layout="false">
@@ -120,18 +106,7 @@
           <text value="Borrar"/>
         </properties>
       </component>
-      <component id="3b301" class="javax.swing.JButton" binding="updateBtn">
-        <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="100" height="-1"/>
-            <maximum-size width="100" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Actualizar"/>
-        </properties>
-      </component>
-      <scrollpane id="20147">
+      <scrollpane id="20147" binding="ScrollPane">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -144,6 +119,36 @@
           </component>
         </children>
       </scrollpane>
+      <component id="74ebc" class="javax.swing.JButton" binding="subPieceBtn">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Composición de Piezas"/>
+        </properties>
+      </component>
+      <component id="3b301" class="javax.swing.JButton" binding="updateBtn">
+        <constraints>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Actualizar"/>
+        </properties>
+      </component>
+      <component id="ebead" class="javax.swing.JTextField" binding="codTex">
+        <constraints>
+          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="4" anchor="9" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="150" height="-1"/>
+            <preferred-size width="100" height="30"/>
+            <maximum-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <maximumSize width="20" height="30"/>
+          <minimumSize width="10" height="30"/>
+          <text value=""/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
