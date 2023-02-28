@@ -20,8 +20,16 @@ public class CtrlPiece implements ActionListener {
         this.piece.setVisible(true);
     }
 
+    private void cleanText() {
+        this.piece.getIdText().setText("");
+        this.piece.getPriceText().setText("");
+        this.piece.getDescText().setText("");
+        this.piece.getCodTex().setText("");
+    }
+
     private void readPieces() {
         ArrayList<model.Piece> pieces = this.queries.readPieces();
+        this.cleanText();
 
         Object[][] data = new Object[pieces.size()][];
 
