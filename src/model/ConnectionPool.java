@@ -33,13 +33,11 @@ public class ConnectionPool {
             return connect;
         }
 
-        public boolean closeConnection(Connection connection) {
+        public void closeConnection(Connection connection) {
             try {
                 connection.close();
-                return true;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
-                return false;
             }
         }
 }
