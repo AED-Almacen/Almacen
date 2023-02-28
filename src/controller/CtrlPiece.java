@@ -56,7 +56,7 @@ public class CtrlPiece implements ActionListener {
         this.piece.getAddBtn().addActionListener(this);
         this.piece.getDropBtn().addActionListener(this);
         this.piece.getUpdateBtn().addActionListener(this);
-        readPieces();
+        this.readPieces();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class CtrlPiece implements ActionListener {
                             "Error al añadir pieza. La pieza debe tener precio y código.");
                 } else {
                     this.queries.createPiece(price, desc, codPiece);
-                    readPieces();
+                    this.readPieces();
                 }
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
@@ -87,7 +87,7 @@ public class CtrlPiece implements ActionListener {
                             "Error al borrar pieza. El id no es correcto.");
                 } else {
                     this.queries.deletePiece(id);
-                    readPieces();
+                    this.readPieces();
                 }
 
             } catch (Exception exception) {
@@ -109,7 +109,7 @@ public class CtrlPiece implements ActionListener {
                             "Error al actualizar la pieza. El id no es correcto.");
                 } else {
                     this.queries.updatePiece(id, price, desc, codPiece);
-                    readPieces();
+                    this.readPieces();
                 }
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
