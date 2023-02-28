@@ -12,7 +12,7 @@ public class Store extends JFrame {
 
     public Store() {
         super();
-        setContentPane(window);
+        setContentPane(this.window);
     }
 
     public JPanel getWindow() {
