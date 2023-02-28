@@ -56,6 +56,7 @@ public class CtrlPiece implements ActionListener {
         this.piece.getAddBtn().addActionListener(this);
         this.piece.getDropBtn().addActionListener(this);
         this.piece.getUpdateBtn().addActionListener(this);
+        this.piece.getSubPieceBtn().addActionListener(this);
         this.readPieces();
     }
 
@@ -115,6 +116,8 @@ public class CtrlPiece implements ActionListener {
                 JOptionPane.showMessageDialog(null,
                         "Error al actualizar la pieza. Debes especificar el id de la pieza a actualizar.");
             }
+        } else if (e.getSource() == this.piece.getSubPieceBtn()) {
+            new CtrlSubPiece();
         }
     }
 }
