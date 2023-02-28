@@ -1,6 +1,5 @@
 package model;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -54,25 +53,23 @@ public class PieceQueries {
         Connection conn = ConnectionPool.getInstance().getConnection();
         String sql = "SELECT * FROM pieza";
 
+        ArrayList<Piece> pieces = new ArrayList<>();
+
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-
-            ArrayList<Piece> pieces = new ArrayList<>();
 
             while (rs.next()) {
                 pieces.add(new Piece(rs.getInt("id"), rs.getFloat("precio"),
                         rs.getString("descripcion"), rs.getString("cod_pieza")));
             }
-
-            if (pieces.size() > 0) return pieces;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             ConnectionPool.getInstance().closeConnection(conn);
         }
 
-        return null;
+        return pieces;
     }
 
     public void updatePiece(int id, float price, String desc, String codPiece) {
