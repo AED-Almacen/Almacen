@@ -117,7 +117,13 @@ public class CtrlPiece implements ActionListener {
                         "Error al actualizar la pieza. Debes especificar el id de la pieza a actualizar.");
             }
         } else if (e.getSource() == this.piece.getSubPieceBtn()) {
-            new CtrlSubPiece();
+            try {
+                int id = Integer.parseInt(piece.getIdText().getText());
+                new CtrlSubPiece(id);
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null,
+                        "Error al encontrar la pieza. Debes especificar el id de la pieza para acceder a las subpiezas.");
+            }
         }
     }
 }
