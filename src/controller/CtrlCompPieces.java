@@ -8,12 +8,13 @@ import view.CompPieces;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class CtrlCompPieces {
+public class CtrlCompPieces implements ActionListener {
     private final CompPieces compPieces;
-    private final PieceQueries pieceQueries;
-    private final CompPiecesQueries compPiecesQueries;
+    private final CompPiecesQueries queries;
 
     private void windowConfig() {
         this.compPieces.setTitle("Piezas");
@@ -23,7 +24,7 @@ public class CtrlCompPieces {
     }
 
     private void readCompPieces(int idPiece) {
-        ArrayList<Piece> compPieces = this.compPiecesQueries.readCompPieces(idPiece);
+        ArrayList<Piece> compPieces = this.queries.readCompPieces(idPiece);
 
         Object[][] data = new Object[compPieces.size()][];
 
@@ -46,13 +47,24 @@ public class CtrlCompPieces {
         this.compPieces = new CompPieces();
         this.windowConfig();
 
-        this.pieceQueries = new PieceQueries();
-        this.compPiecesQueries = new CompPiecesQueries();
+        PieceQueries pieceQueries = new PieceQueries();
+        this.queries = new CompPiecesQueries();
 
-        String title = "Piezas compuestas - Pieza " + this.pieceQueries.readPiece(idPiece).getCodPiece();
+        String title = "Piezas compuestas - Pieza " + pieceQueries.readPiece(idPiece).getCodPiece();
         TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), title);
         this.compPieces.getScrollPane().setBorder(border);
 
         this.readCompPieces(idPiece);
+        ArrayList<Piece> pieces = pieceQueries.readPieces();
+
+        for (Piece piece : pieces) {
+            this.compPieces.getPiecesCombo().addItem(piece.getId() + " - " + piece.getCodPiece()
+                    + " - " + piece.getDesc() + " - " + piece.getPrice());
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
