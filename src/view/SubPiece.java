@@ -11,4 +11,12 @@ public class SubPiece extends JFrame {
         super();
         setContentPane(this.window);
     }
+
+    public JScrollPane getScrollPane() {
+        return ScrollPane;
+    }
+
+    public JTable getTable() {
+        return table;
+    }
 }
