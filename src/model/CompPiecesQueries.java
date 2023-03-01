@@ -50,7 +50,7 @@ public class CompPiecesQueries {
 
     public void updateCompPiece(int id, int idPiece, int idCompPiece) {
         Connection conn = ConnectionPool.getInstance().getConnection();
-        String sql = "UPDATE pieza_comp SET  id_pieza = ?, id_pieza_comp = ? WHERE id = ?";
+        String sql = "UPDATE pieza_comp SET id_pieza = ?, id_pieza_comp = ? WHERE id = ?";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
