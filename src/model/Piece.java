@@ -14,7 +14,7 @@ public class Piece {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -22,7 +22,7 @@ public class Piece {
     }
 
     public Float getPrice() {
-        return price;
+        return this.price;
     }
 
     public void setPrice(Float price) {
@@ -30,7 +30,7 @@ public class Piece {
     }
 
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
 
     public void setDesc(String desc) {
@@ -38,7 +38,7 @@ public class Piece {
     }
 
     public String getCodPiece() {
-        return codPiece;
+        return this.codPiece;
     }
 
     public void setCodPiece(String codPiece) {
