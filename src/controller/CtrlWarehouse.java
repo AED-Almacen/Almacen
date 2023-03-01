@@ -26,7 +26,7 @@ public class CtrlWarehouse implements ActionListener {
 
         if(warehouses == null) {
             this.warehouse.getTextArea1().append("No hay almacenes en la base de datos.");
-        }else{
+        } else {
             for (model.Warehouse warehouse : warehouses) {
                 this.warehouse.getTextArea1().append(warehouse.toString()+"\n");
             }
