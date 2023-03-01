@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class CtrlWarehouse implements ActionListener {
-    private Warehouse warehouse;
-    private WarehouseQueries queries;
+    private final Warehouse warehouse;
+    private final WarehouseQueries queries;
 
     private void windowConfig() {
         this.warehouse.setTitle("Warehouse");

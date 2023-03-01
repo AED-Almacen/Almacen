@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class CtrlStoke {
-    private Stoke stoke;
-    private StokeQueries queries;
+    private final Stoke stoke;
+    private final StokeQueries queries;
 
     private void windowConfig() {
         this.stoke.setTitle("Stoke");

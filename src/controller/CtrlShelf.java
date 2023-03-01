@@ -1,7 +1,6 @@
 package controller;
 
 import model.ShelfQueries;
-import model.Warehouse;
 import model.WarehouseQueries;
 import view.Shelf;
 
