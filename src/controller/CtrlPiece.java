@@ -119,7 +119,7 @@ public class CtrlPiece implements ActionListener {
         } else if (e.getSource() == this.piece.getSubPieceBtn()) {
             try {
                 int id = Integer.parseInt(piece.getIdText().getText());
-                new CtrlSubPiece(id);
+                new CtrlCompPiece(id);
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
                         "Error al encontrar la pieza. Debes especificar el id de la pieza para acceder a las subpiezas.");

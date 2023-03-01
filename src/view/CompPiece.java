@@ -2,12 +2,12 @@ package view;
 
 import javax.swing.*;
 
-public class SubPiece extends JFrame {
+public class CompPiece extends JFrame {
     private JPanel window;
     private JScrollPane ScrollPane;
     private JTable table;
 
-    public SubPiece() {
+    public CompPiece() {
         super();
         setContentPane(this.window);
     }
