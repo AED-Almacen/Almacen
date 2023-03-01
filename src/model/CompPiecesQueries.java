@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CompPieceQueries {
+public class CompPiecesQueries {
     public void createCompPiece(int idPiece, int idCompPiece) {
         Connection conn = ConnectionPool.getInstance().getConnection();
         String sql = "INSERT INTO pieza_comp (id_pieza, id_pieza_comp) VALUES (?, ?) ";
@@ -24,35 +24,11 @@ public class CompPieceQueries {
         }
     }
 
-    public CompPiece readCompPiece(int id) {
-        Connection conn = ConnectionPool.getInstance().getConnection();
-        String sql = "SELECT * FROM pieza_comp WHERE id = ?";
-
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                return new CompPiece(id, rs.getInt("id_pieza"),
-                        rs.getInt("id_pieza_comp"));
-            }
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            ConnectionPool.getInstance().closeConnection(conn);
-        }
-
-        return null;
-    }
-
-    public ArrayList<CompPiece> readCompPieces(int id) {
+    public ArrayList<Piece> readCompPieces(int id) {
         Connection conn = ConnectionPool.getInstance().getConnection();
         String sql = "SELECT * FROM pieza_comp INNER JOIN pieza on pieza_comp.id_pieza_comp = pieza.id WHERE id_pieza = ?";
 
-        ArrayList<CompPiece> compPieces = new ArrayList<>();
+        ArrayList<Piece> compPieces = new ArrayList<>();
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -60,8 +36,8 @@ public class CompPieceQueries {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                compPieces.add(new CompPiece(rs.getInt("id"),
-                        rs.getInt("id_pieza"), rs.getInt("id_pieza_comp")));
+                compPieces.add(new Piece(rs.getInt("id"), rs.getFloat("precio"),
+                        rs.getString("descripcion"), rs.getString("cod_pieza")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
