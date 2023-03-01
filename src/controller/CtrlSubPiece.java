@@ -8,7 +8,7 @@ import javax.swing.border.TitledBorder;
 
 public class CtrlSubPiece {
     private final SubPiece subPiece;
-    private final PieceQueries queries;
+    private final PieceQueries pieceQueries;
 
     private void windowConfig() {
         this.subPiece.setTitle("Piezas");
@@ -21,9 +21,9 @@ public class CtrlSubPiece {
         this.subPiece = new SubPiece();
         this.windowConfig();
 
-        this.queries = new PieceQueries();
+        this.pieceQueries = new PieceQueries();
 
-        String title = "Piezas compuestas - Pieza " + this.queries.readPiece(idPiece).getCodPiece();
+        String title = "Piezas compuestas - Pieza " + this.pieceQueries.readPiece(idPiece).getCodPiece();
         TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), title);
         this.subPiece.getScrollPane().setBorder(border);
     }
