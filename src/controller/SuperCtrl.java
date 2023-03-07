@@ -9,7 +9,7 @@ public class SuperCtrl implements ActionListener {
     private final Store store;
 
     private void windowConfig() {
-        this.store.setTitle("Store");
+        this.store.setTitle("Acciones de Almacén");
         this.store.setLocationRelativeTo(null);
         this.store.setSize(400, 400);
         this.store.setVisible(true);

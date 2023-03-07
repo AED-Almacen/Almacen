@@ -76,8 +76,8 @@ public class CtrlWarehouse implements ActionListener, MouseListener {
             }
         } else if (e.getSource() == this.warehouse.getDropBtn()) {
             try {
-                int fila = this.warehouse.getTable().getSelectedRow();
-                int id = Integer.parseInt(this.warehouse.getTable().getValueAt(fila, 0).toString());
+                int row = this.warehouse.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.warehouse.getTable().getValueAt(row, 0).toString());
 
                 this.queries.deleteWarehouse(id);
                 this.readWarehouses();
@@ -88,8 +88,8 @@ public class CtrlWarehouse implements ActionListener, MouseListener {
             }
         } else if (e.getSource() == this.warehouse.getUpdateBtn()) {
             try {
-                int fila = this.warehouse.getTable().getSelectedRow();
-                int id = Integer.parseInt(this.warehouse.getTable().getValueAt(fila, 0).toString());
+                int row = this.warehouse.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.warehouse.getTable().getValueAt(row, 0).toString());
 
                 String desc = warehouse.getDescriptionTxt().getText();
                 String address = warehouse.getAddressTxt().getText();
@@ -105,10 +105,10 @@ public class CtrlWarehouse implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int fila = this.warehouse.getTable().getSelectedRow();
+        int row = this.warehouse.getTable().getSelectedRow();
 
-        this.warehouse.getDescriptionTxt().setText(this.warehouse.getTable().getValueAt(fila, 1).toString());
-        this.warehouse.getAddressTxt().setText(this.warehouse.getTable().getValueAt(fila, 2).toString());
+        this.warehouse.getDescriptionTxt().setText(this.warehouse.getTable().getValueAt(row, 1).toString());
+        this.warehouse.getAddressTxt().setText(this.warehouse.getTable().getValueAt(row, 2).toString());
     }
 
     @Override

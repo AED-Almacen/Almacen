@@ -89,8 +89,8 @@ public class CtrlCompPieces implements ActionListener, MouseListener {
 
         } else if (e.getSource() == this.compPieces.getUpdateBtn()) {
             try {
-                int fila = this.compPieces.getTable().getSelectedRow();
-                int id = Integer.parseInt(this.compPieces.getTable().getValueAt(fila, 0).toString());
+                int row = this.compPieces.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.compPieces.getTable().getValueAt(row, 0).toString());
 
                 if (comboSelected != null) {
                     int idCompPiece = Integer.parseInt(comboSelected.toString().split(" - ")[0]);
@@ -105,8 +105,8 @@ public class CtrlCompPieces implements ActionListener, MouseListener {
             }
         } else if (e.getSource() == this.compPieces.getDropBtn()) {
             try {
-                int fila = this.compPieces.getTable().getSelectedRow();
-                int id = Integer.parseInt(this.compPieces.getTable().getValueAt(fila, 0).toString());
+                int row = this.compPieces.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.compPieces.getTable().getValueAt(row, 0).toString());
 
                 this.queries.deleteCompPiece(id);
                 this.readCompPieces();
@@ -120,10 +120,10 @@ public class CtrlCompPieces implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int fila = this.compPieces.getTable().getSelectedRow();
+        int row = this.compPieces.getTable().getSelectedRow();
 
-        this.compPieces.getPiecesCombo().setSelectedItem(this.compPieces.getTable().getValueAt(fila, 1) +
-                " - " + this.compPieces.getTable().getValueAt(fila, 4));
+        this.compPieces.getPiecesCombo().setSelectedItem(this.compPieces.getTable().getValueAt(row, 1) +
+                " - " + this.compPieces.getTable().getValueAt(row, 4));
     }
 
     @Override

@@ -20,7 +20,7 @@ public class CtrlShelf implements ActionListener, MouseListener {
     private final WarehouseQueries warehouseQueries;
 
     private void windowConfig() {
-        this.shelf.setTitle("Shelf");
+        this.shelf.setTitle("Estantería");
         this.shelf.setLocationRelativeTo(null);
         this.shelf.setSize(700, 400);
         this.shelf.setVisible(true);
@@ -91,21 +91,26 @@ public class CtrlShelf implements ActionListener, MouseListener {
 
         } else if (e.getSource() == this.shelf.getUpdateBtn()) {
             try {
-                int fila = this.shelf.getTable().getSelectedRow();
-                int id = Integer.parseInt(this.shelf.getTable().getValueAt(fila, 0).toString());
-                int idWarehouse = Integer.parseInt(this.shelf.getTable().getValueAt(fila, 2).toString());
+                int row = this.shelf.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.shelf.getTable().getValueAt(row, 0).toString());
 
-                this.queries.updateShelf(id, this.shelf.getCodTxt().getText(), idWarehouse);
-                this.readShelves();
+                if (comboSelected != null) {
+                    int idWarehouse = Integer.parseInt(comboSelected.toString().split(" - ")[0]);
 
+                    this.queries.updateShelf(id, this.shelf.getCodTxt().getText(), idWarehouse);
+                    this.readShelves();
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "Error al actualizar elemento stoke. Debe seleccionar una pieza y una estantería.");
+                }
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
                         "Error al actualizar pieza. Debe seleccionar la pieza a actualizar.");
             }
         } else if (e.getSource() == this.shelf.getDropBtn()) {
             try {
-                int fila = this.shelf.getTable().getSelectedRow();
-                int id = Integer.parseInt(this.shelf.getTable().getValueAt(fila, 0).toString());
+                int row = this.shelf.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.shelf.getTable().getValueAt(row, 0).toString());
 
                 this.queries.deleteShelf(id);
                 this.readShelves();
@@ -119,11 +124,11 @@ public class CtrlShelf implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int fila = this.shelf.getTable().getSelectedRow();
+        int row = this.shelf.getTable().getSelectedRow();
 
-        this.shelf.getCodTxt().setText(this.shelf.getTable().getValueAt(fila, 1).toString());
-        this.shelf.getWarehouseCombo().setSelectedItem(this.shelf.getTable().getValueAt(fila, 2) +
-                " - " + this.shelf.getTable().getValueAt(fila, 3));
+        this.shelf.getCodTxt().setText(this.shelf.getTable().getValueAt(row, 1).toString());
+        this.shelf.getWarehouseCombo().setSelectedItem(this.shelf.getTable().getValueAt(row, 2) +
+                " - " + this.shelf.getTable().getValueAt(row, 3));
     }
 
     @Override

@@ -79,8 +79,8 @@ public class CtrlPiece implements ActionListener, MouseListener {
             }
         } else if (e.getSource() == this.piece.getDropBtn()) {
             try {
-                int fila = this.piece.getTable().getSelectedRow();
-                int id = Integer.parseInt(this.piece.getTable().getValueAt(fila, 0).toString());
+                int row = this.piece.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.piece.getTable().getValueAt(row, 0).toString());
 
                 this.queries.deletePiece(id);
                 this.readPieces();
@@ -91,8 +91,8 @@ public class CtrlPiece implements ActionListener, MouseListener {
             }
         } else if (e.getSource() == this.piece.getUpdateBtn()) {
             try {
-                int fila = this.piece.getTable().getSelectedRow();
-                int id = Integer.parseInt(this.piece.getTable().getValueAt(fila, 0).toString());
+                int row = this.piece.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.piece.getTable().getValueAt(row, 0).toString());
 
                 float price = Float.parseFloat(piece.getPriceTxt().getText());
                 String desc = piece.getDescTxt().getText();
@@ -106,8 +106,8 @@ public class CtrlPiece implements ActionListener, MouseListener {
             }
         } else if (e.getSource() == this.piece.getSubPieceBtn()) {
             try {
-                int fila = this.piece.getTable().getSelectedRow();
-                int id = Integer.parseInt(this.piece.getTable().getValueAt(fila, 0).toString());
+                int row = this.piece.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.piece.getTable().getValueAt(row, 0).toString());
 
                 new CtrlCompPieces(id);
             } catch (Exception exception) {
@@ -119,11 +119,11 @@ public class CtrlPiece implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int fila = this.piece.getTable().getSelectedRow();
+        int row = this.piece.getTable().getSelectedRow();
 
-        this.piece.getPriceTxt().setText(this.piece.getTable().getValueAt(fila, 1).toString());
-        this.piece.getDescTxt().setText(this.piece.getTable().getValueAt(fila, 2).toString());
-        this.piece.getCodTxt().setText(this.piece.getTable().getValueAt(fila, 3).toString());
+        this.piece.getPriceTxt().setText(this.piece.getTable().getValueAt(row, 1).toString());
+        this.piece.getDescTxt().setText(this.piece.getTable().getValueAt(row, 2).toString());
+        this.piece.getCodTxt().setText(this.piece.getTable().getValueAt(row, 3).toString());
     }
 
     @Override
