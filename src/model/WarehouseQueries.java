@@ -7,14 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class WarehouseQueries {
-    public void createWarehouse(String desc, String adress) {
+    public void createWarehouse(String desc, String address) {
         Connection conn = ConnectionPool.getInstance().getConnection();
-        String sql = "INSERT INTO almacen (direccion, descripcion) VALUES (?, ?) ";
+        String sql = "INSERT INTO almacen (descripcion, direccion) VALUES (?, ?) ";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, adress);
-            ps.setString(2, desc);
+            ps.setString(1, desc);
+            ps.setString(2, address);
             ps.execute();
 
         } catch (SQLException e) {
@@ -50,17 +50,17 @@ public class WarehouseQueries {
 
     public ArrayList<Warehouse> readWarehouses() {
         Connection conn = ConnectionPool.getInstance().getConnection();
-        String sql = "SELECT * FROM almacen";
+        String sql = "SELECT * FROM almacen ORDER BY id ASC";
+
+        ArrayList<Warehouse> warehouses = new ArrayList<>();
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            ArrayList<Warehouse> warehouses = new ArrayList<>();
-
             while (rs.next()) {
                 warehouses.add(new Warehouse(rs.getInt("id"),
-                        rs.getString("direccion"), rs.getString("descripcion")));
+                        rs.getString("descripcion"), rs.getString("direccion")));
             }
 
             if (warehouses.size() > 0) return warehouses;
@@ -70,17 +70,17 @@ public class WarehouseQueries {
             ConnectionPool.getInstance().closeConnection(conn);
         }
 
-        return null;
+        return warehouses;
     }
 
-    public void updateWarehouse(int id, String address, String desc) {
+    public void updateWarehouse(int id, String desc, String address) {
         Connection conn = ConnectionPool.getInstance().getConnection();
-        String sql = "UPDATE almacen SET  direccion = ?, descripcion = ? WHERE id = ?";
+        String sql = "UPDATE almacen SET descripcion = ?, direccion = ? WHERE id = ?";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, address);
-            ps.setString(2, desc);
+            ps.setString(1, desc);
+            ps.setString(2, address);
             ps.setInt(3, id);
             ps.execute();
 
