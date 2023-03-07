@@ -9,7 +9,7 @@ public class CompPieces extends JFrame {
     private JComboBox piecesCombo;
     private JButton addBtn;
     private JButton dropBtn;
-    private JTextField idText;
+    private JButton updateBtn;
 
     public CompPieces() {
         super();
@@ -36,7 +36,7 @@ public class CompPieces extends JFrame {
         return dropBtn;
     }
 
-    public JTextField getIdText() {
-        return idText;
+    public JButton getUpdateBtn() {
+        return updateBtn;
     }
 }
