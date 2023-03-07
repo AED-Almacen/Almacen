@@ -51,7 +51,7 @@ public class PieceQueries {
 
     public ArrayList<Piece> readPieces() {
         Connection conn = ConnectionPool.getInstance().getConnection();
-        String sql = "SELECT * FROM pieza";
+        String sql = "SELECT * FROM pieza ORDER BY id ASC";
 
         ArrayList<Piece> pieces = new ArrayList<>();
 
