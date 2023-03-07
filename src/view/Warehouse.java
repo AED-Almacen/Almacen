@@ -4,18 +4,12 @@ import javax.swing.*;
 
 public class Warehouse extends JFrame {
     private JPanel window;
+    private JTextArea descriptionTxt;
+    private JTextField addressTxt;
+    private JTable table;
     private JButton addBtn;
     private JButton dropBtn;
     private JButton updateBtn;
-    private JTextArea textArea1;
-    private JTextField idText;
-    private JTextField descriptionText;
-    private JTextField addresText;
-
-
-    public void setTextArea1(JTextArea textArea1) {
-        this.textArea1 = textArea1;
-    }
 
     public Warehouse() {
         super();
@@ -27,27 +21,21 @@ public class Warehouse extends JFrame {
         return this.window;
     }
 
-    public JButton getAddBtn() {return addBtn;}
-    public JButton getDropBtn() {return dropBtn;}
-    public JButton getUpdateBtn() {return updateBtn;}
-
-    public JTextArea getTextArea1() {
-        return textArea1;
+    public JTextArea getDescriptionTxt() {
+        return this.descriptionTxt;
     }
 
-    public JTextField getIdText() {
-        return idText;
+    public JTextField getAddressTxt() {
+        return this.addressTxt;
     }
 
-    public JTextField getDescriptionText() {
-        return descriptionText;
-    }
+    public JButton getAddBtn() {return this.addBtn;}
 
-    public JTextField getAddresText() {
-        return addresText;
-    }
+    public JButton getDropBtn() {return this.dropBtn;}
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
+    public JButton getUpdateBtn() {return this.updateBtn;}
+
+    public JTable getTable() {
+        return this.table;
     }
 }
