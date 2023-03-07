@@ -4,11 +4,14 @@ import model.WarehouseQueries;
 import view.Warehouse;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class CtrlWarehouse implements ActionListener {
+public class CtrlWarehouse implements ActionListener, MouseListener {
     private final Warehouse warehouse;
     private final WarehouseQueries queries;
 
@@ -19,18 +22,29 @@ public class CtrlWarehouse implements ActionListener {
         this.warehouse.setVisible(true);
     }
 
-    private void readWarehouse() {
-        this.warehouse.getTextArea1().setText("");
+    private void cleanText() {
+        this.warehouse.getDescriptionTxt().setText("");
+        this.warehouse.getAddressTxt().setText("");
+    }
 
-        ArrayList<model.Warehouse> warehouses = queries.readWarehouses();
+    private void readWarehouses() {
+        ArrayList<model.Warehouse> warehouses = this.queries.readWarehouses();
+        this.cleanText();
 
-        if(warehouses == null) {
-            this.warehouse.getTextArea1().append("No hay almacenes en la base de datos.");
-        } else {
-            for (model.Warehouse warehouse : warehouses) {
-                this.warehouse.getTextArea1().append(warehouse.toString()+"\n");
-            }
+        Object[][] data = new Object[warehouses.size()][];
+
+        for (int i = 0; i < warehouses.size(); i++) {
+            data[i] = new String[]{
+                    String.valueOf(warehouses.get(i).getId()),
+                    warehouses.get(i).getDesc(),
+                    warehouses.get(i).getAddress()
+            };
         }
+
+        this.warehouse.getTable().setModel(new DefaultTableModel(
+                data,
+                new String[]{"Id", "Descripción", "Dirección"}
+        ));
 
     }
     public CtrlWarehouse() {
@@ -41,64 +55,78 @@ public class CtrlWarehouse implements ActionListener {
         this.warehouse.getAddBtn().addActionListener(this);
         this.warehouse.getDropBtn().addActionListener(this);
         this.warehouse.getUpdateBtn().addActionListener(this);
-        readWarehouse();
+        this.warehouse.getTable().addMouseListener(this);
+        this.readWarehouses();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.warehouse.getAddBtn()) {
             try {
-                String desc = warehouse.getDescriptionText().getText();
-                String address = warehouse.getAddresText().getText();
+                String desc = warehouse.getDescriptionTxt().getText();
+                String address = warehouse.getAddressTxt().getText();
 
-                if (desc.equals("") || address.equals("")) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al añadir Almacen. Debe rellenar todos los campos.");
-                } else {
-                    this.queries.createWarehouse( address, desc);
-                    readWarehouse();
-                }
+                this.queries.createWarehouse(desc, address);
+                this.readWarehouses();
+
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Error al añadir almacen. el almacen debe tener descripcion y direccion.");
+                        "Error al añadir pieza.");
             }
         } else if (e.getSource() == this.warehouse.getDropBtn()) {
             try {
-                if(this.queries.readWarehouse(Integer.parseInt(warehouse.getIdText().getText())) == null) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al borrar almacen. El almacen no existe.");
-                    return;
-                };
-                this.queries.deleteWarehouse(Integer.parseInt(warehouse.getIdText().getText()));
-                readWarehouse();
+                int fila = this.warehouse.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.warehouse.getTable().getValueAt(fila, 0).toString());
+
+                this.queries.deleteWarehouse(id);
+                this.readWarehouses();
+
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Error al borrar almacen. Debes especificar el id de del almacen a borrar.");
+                        "Error al borrar pieza. Debe seleccionar la pieza a borrar.");
             }
         } else if (e.getSource() == this.warehouse.getUpdateBtn()) {
-
             try {
-                if(this.queries.readWarehouse(Integer.parseInt(warehouse.getIdText().getText())) == null) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al actualizar almacen. El almacen no existe.");
-                    return;
-                };
-                int id = Integer.parseInt(warehouse.getIdText().getText());
-                String desc = warehouse.getDescriptionText().getText();
-                String address = warehouse.getAddresText().getText();
+                int fila = this.warehouse.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.warehouse.getTable().getValueAt(fila, 0).toString());
 
-                if (desc.equals("") || address.equals("")) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al añadir Almacen. Debe rellenar todos los campos.");
-                } else {
-                    this.queries.updateWarehouse(id, address, desc);
-                    readWarehouse();
-                }
+                String desc = warehouse.getDescriptionTxt().getText();
+                String address = warehouse.getAddressTxt().getText();
+
+                this.queries.updateWarehouse(id, desc, address);
+                this.readWarehouses();
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Error al actualizar el almacen. Debes especificar el id del almacen a actualizar.");
+                        "Error al actualizar la pieza. Debe seleccionar la pieza a actualizar y mantener un código.");
             }
         }
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int fila = this.warehouse.getTable().getSelectedRow();
+
+        this.warehouse.getDescriptionTxt().setText(this.warehouse.getTable().getValueAt(fila, 1).toString());
+        this.warehouse.getAddressTxt().setText(this.warehouse.getTable().getValueAt(fila, 2).toString());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
