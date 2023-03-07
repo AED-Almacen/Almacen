@@ -3,9 +3,9 @@ package model;
 import java.util.Objects;
 
 public class Warehouse  {
-    private int id;
-    private String desc;
-    private String address;
+    private final int id;
+    private final String desc;
+    private final String address;
 
     public Warehouse(int id, String desc, String address) {
         this.id = id;
@@ -17,24 +17,12 @@ public class Warehouse  {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
+        return this.desc;
     }
 
     public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+        return this.address;
     }
 
     @Override
@@ -48,8 +36,8 @@ public class Warehouse  {
         if (o == null || getClass() != o.getClass()) return false;
 
         Warehouse that = (Warehouse) o;
-        if(desc != null ? !desc.equals(that.desc) : that.desc != null) return false;
-        if(address != null ? !address.equals(that.address) : that.address != null) return false;
+        if(!Objects.equals(desc, that.desc)) return false;
+        if(!Objects.equals(address, that.address)) return false;
         return true;
     }
 

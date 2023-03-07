@@ -2,10 +2,9 @@ package model;
 
 public class Shelf {
 
-    private int id;
-
-    private String codShelf;
-    private int idWarehouse;
+    private final int id;
+    private final String codShelf;
+    private final int idWarehouse;
 
     public Shelf(int id, String codShelf, int idWarehouse) {
         this.id = id;
@@ -17,28 +16,40 @@ public class Shelf {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getCodShelf() {
         return codShelf;
-    }
-
-    public void setCodShelf(String codShelf) {
-        this.codShelf = codShelf;
     }
 
     public int getIdWarehouse() {
         return idWarehouse;
     }
 
-    public void setIdWarehouse(int idWarehouse) {
-        this.idWarehouse = idWarehouse;
+    @Override
+    public String toString() {
+        return "Shelf{" +
+                "id=" + id +
+                ", codShelf='" + codShelf + '\'' +
+                ", idWarehouse=" + idWarehouse +
+                '}';
     }
 
     @Override
-    public String toString() {
-        return "id:" + id +", Código Estanteria: " + codShelf +", Almacen: " + idWarehouse;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Shelf shelf = (Shelf) o;
+
+        if (id != shelf.id) return false;
+        if (idWarehouse != shelf.idWarehouse) return false;
+        return codShelf.equals(shelf.codShelf);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + codShelf.hashCode();
+        result = 31 * result + idWarehouse;
+        return result;
     }
 }
