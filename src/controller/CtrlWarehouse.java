@@ -10,15 +10,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CtrlWarehouse implements ActionListener, MouseListener {
     private final Warehouse warehouse;
     private final WarehouseQueries queries;
 
     private void windowConfig() {
-        this.warehouse.setTitle("Warehouse");
+        this.warehouse.setTitle("Almacén");
         this.warehouse.setLocationRelativeTo(null);
-        this.warehouse.setSize(600, 600);
+        this.warehouse.setSize(700, 400);
         this.warehouse.setVisible(true);
     }
 

@@ -34,8 +34,8 @@ public class WarehouseQueries {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                return new Warehouse(id, rs.getString("direccion"),
-                        rs.getString("descripcion"));
+                return new Warehouse(id, rs.getString("descripcion"),
+                        rs.getString("direccion"));
             }
 
 

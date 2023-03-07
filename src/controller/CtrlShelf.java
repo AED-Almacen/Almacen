@@ -1,132 +1,148 @@
 package controller;
 
 import model.ShelfQueries;
+import model.Warehouse;
 import model.WarehouseQueries;
 import view.Shelf;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class CtrlShelf implements ActionListener {
+public class CtrlShelf implements ActionListener, MouseListener {
     private final Shelf shelf;
     private final ShelfQueries queries;
-    private final WarehouseQueries queriesWarehouse;
-
-
+    private final WarehouseQueries warehouseQueries;
 
     private void windowConfig() {
         this.shelf.setTitle("Shelf");
         this.shelf.setLocationRelativeTo(null);
-        this.shelf.setSize(1000, 800);
+        this.shelf.setSize(700, 400);
         this.shelf.setVisible(true);
     }
 
-    private void readShelf() {
-        this.shelf.getTextArea1().setText("");
+    private void cleanText() {
+        this.shelf.getCodTxt().setText("");
+    }
 
-        ArrayList<model.Shelf> shelves = queries.readShelves();
-        ArrayList<model.Warehouse> warehouses = queriesWarehouse.readWarehouses();
+    private void readShelves() {
+        ArrayList<model.Shelf> shelves = this.queries.readShelves();
+        this.cleanText();
 
-        if (shelves == null) {
-            this.shelf.getTextArea1().append("No hay estanterias en la base de datos.");
-        } else {
-            for (model.Shelf shelf : shelves) {
-                this.shelf.getTextArea1().append(shelves.toString()+"\n");
+        Object[][] data = new Object[shelves.size()][];
+
+        for (int i = 0; i < shelves.size(); i++) {
+            Warehouse warehouse = this.warehouseQueries.readWarehouse(shelves.get(i).getIdWarehouse());
+
+            if (warehouse != null) {
+                data[i] = new String[]{
+                        String.valueOf(shelves.get(i).getId()),
+                        shelves.get(i).getCodShelf(),
+                        String.valueOf(warehouse.getId()),
+                        warehouse.getDesc(),
+                        warehouse.getAddress()
+                };
             }
         }
 
-        if (warehouses == null) {
-            this.shelf.getTextArea1().append("No hay almacenes en la base de datos.");
-        } else {
-            for (model.Warehouse warehouse : warehouses) {
-                this.shelf.getWarehouseCombo().addItem(warehouse.getId()+"-"+warehouse.getDesc());
-            }
-        }
+        this.shelf.getTable().setModel(new DefaultTableModel(
+                data,
+                new String[]{"Id", "Código", "Id Almacén", "Descripción", "Dirección"}
+        ));
     }
     public CtrlShelf() {
         this.shelf = new view.Shelf();
         windowConfig();
 
         this.queries = new ShelfQueries();
-        this.queriesWarehouse = new WarehouseQueries();
+        this.warehouseQueries = new WarehouseQueries();
+
+        this.readShelves();
+        ArrayList<Warehouse> warehouses = warehouseQueries.readWarehouses();
+        for (Warehouse warehouse : warehouses) {
+            this.shelf.getWarehouseCombo().addItem(warehouse.getId() + " - " + warehouse.getDesc());
+        }
+
         this.shelf.getAddBtn().addActionListener(this);
         this.shelf.getDropBtn().addActionListener(this);
         this.shelf.getUpdateBtn().addActionListener(this);
-        this.readShelf();
+        this.shelf.getTable().addMouseListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Object comboSelected = this.shelf.getWarehouseCombo().getSelectedItem();
+
         if (e.getSource() == this.shelf.getAddBtn()) {
+            if (comboSelected != null) {
+                int idWarehouse = Integer.parseInt(comboSelected.toString().split(" - ")[0]);
+                this.queries.createShelf(this.shelf.getCodTxt().getText(), idWarehouse);
+
+                this.readShelves();
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Error al añadir pieza. Debe seleccionar una pieza.");
+            }
+
+        } else if (e.getSource() == this.shelf.getUpdateBtn()) {
             try {
-                int idWarehouse = 0;
-                String codEstanteria = shelf.getCodShelfText().getText();
-                Object comboSelected = shelf.getWarehouseCombo().getSelectedItem();
+                int fila = this.shelf.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.shelf.getTable().getValueAt(fila, 0).toString());
+                int idWarehouse = Integer.parseInt(this.shelf.getTable().getValueAt(fila, 2).toString());
 
-                if(comboSelected != null){
-                    String warehouseCombo = comboSelected.toString().split("-")[0];
-                    int idSearch = Integer.parseInt(warehouseCombo);
-                    idWarehouse = queriesWarehouse.readWarehouse(idSearch).getId();
-                }
+                this.queries.updateShelf(id, this.shelf.getCodTxt().getText(), idWarehouse);
+                this.readShelves();
 
-
-                if (codEstanteria.equals("") || idWarehouse == 0) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al añadir estanteria. Debe rellenar todos los campos.");
-                } else {
-                    this.queries.createShelf( codEstanteria, idWarehouse);
-                    readShelf();
-                }
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Error al añadir estanteria. el almacen debe tener descripcion y direccion.");
+                        "Error al actualizar pieza. Debe seleccionar la pieza a actualizar.");
             }
         } else if (e.getSource() == this.shelf.getDropBtn()) {
             try {
-                if(this.queries.readShelf(Integer.parseInt(shelf.getIdText().getText())) == null) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al borrar estanteria. El almacen no existe.");
-                    return;
-                };
-                this.queries.deleteShelf(Integer.parseInt(shelf.getIdText().getText()));
-                readShelf();
+                int fila = this.shelf.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.shelf.getTable().getValueAt(fila, 0).toString());
+
+                this.queries.deleteShelf(id);
+                this.readShelves();
+
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Error al borrar estanteria. Debes especificar el id de del estanteria a borrar.");
-            }
-        } else if (e.getSource() == this.shelf.getUpdateBtn()) {
-
-            try {
-                if(this.queries.readShelf(Integer.parseInt(shelf.getIdText().getText())) == null) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al actualizar estanteria. El estanteria no existe.");
-                    return;
-                };
-                int id = Integer.parseInt(shelf.getIdText().getText());
-                int idWarehouse = 0;
-                String codEstanteria = shelf.getCodShelfText().getText();
-                Object comboSelected = shelf.getWarehouseCombo().getSelectedItem();
-
-                if(comboSelected != null){
-                    String warehouseCombo = comboSelected.toString().split("-")[0];
-                    int idSearch = Integer.parseInt(warehouseCombo);
-                    idWarehouse = queriesWarehouse.readWarehouse(idSearch).getId();
-                }
-
-
-                if (codEstanteria.equals("") || idWarehouse == 0) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al añadir estanteria. Debe rellenar todos los campos.");
-                } else {
-                    this.queries.updateShelf(id, codEstanteria, idWarehouse);
-                    readShelf();
-                }
-            } catch (Exception exception) {
-                JOptionPane.showMessageDialog(null,
-                        "Error al actualizar. Debes especificar el id de la estanteria  a actualizar.");
+                        "Error al borrar pieza. Debe seleccionar la pieza a borrar.");
             }
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int fila = this.shelf.getTable().getSelectedRow();
+
+        this.shelf.getCodTxt().setText(this.shelf.getTable().getValueAt(fila, 1).toString());
+        this.shelf.getWarehouseCombo().setSelectedItem(this.shelf.getTable().getValueAt(fila, 2) +
+                " - " + this.shelf.getTable().getValueAt(fila, 3));
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

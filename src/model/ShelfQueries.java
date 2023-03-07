@@ -51,14 +51,15 @@ public class ShelfQueries {
         Connection conn = ConnectionPool.getInstance().getConnection();
         String sql = "SELECT * FROM estanteria";
 
+        ArrayList<Shelf> shelves = new ArrayList<>();
+
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            ArrayList<Shelf> shelves = new ArrayList<>();
-
             while (rs.next()) {
-                shelves.add(new Shelf(rs.getInt("id"), rs.getString("cod_estanteria"), rs.getInt("id_almacen")));
+                shelves.add(new Shelf(rs.getInt("id"),
+                        rs.getString("cod_estanteria"), rs.getInt("id_almacen")));
             }
 
             if (shelves.size() > 0) return shelves;
@@ -68,7 +69,7 @@ public class ShelfQueries {
             ConnectionPool.getInstance().closeConnection(conn);
         }
 
-        return null;
+        return shelves;
     }
 
     public void updateShelf(int id, String codShelf, int idWarehouse) {
