@@ -2,52 +2,42 @@ package view;
 
 import javax.swing.*;
 
-public class Shelf extends JFrame{
+public class Shelf extends JFrame {
     private JPanel window;
     private JButton addBtn;
     private JButton dropBtn;
     private JButton updateBtn;
-    private JTextArea textArea1;
     private JComboBox warehouseCombo;
-    private JTextField codShelfText;
-
-
-
-    private JTextField idText;
-
-
-    public void setTextArea1(JTextArea textArea1) {
-        this.textArea1 = textArea1;
-    }
-
-
+    private JTextField codTxt;
+    private JTable table;
 
     public Shelf() {
         super();
-        this.window.setSize(1500, 1000);
         setContentPane(window);
     }
 
-    public JPanel getWindow() {
-        return this.window;
+    public JTextField getCodTxt() {
+        return this.codTxt;
     }
 
-    public JButton getAddBtn() {return addBtn;}
-    public JButton getDropBtn() {return dropBtn;}
-    public JButton getUpdateBtn() {return updateBtn;}
-
-    public JTextArea getTextArea1() {
-        return textArea1;
+    public JComboBox getWarehouseCombo() {
+        return this.warehouseCombo;
     }
 
-    public JTextField getIdText() {
-        return idText;
+    public JTable getTable() {
+        return this.table;
     }
 
-    public JComboBox getWarehouseCombo() {return warehouseCombo;}
-
-    public JTextField getCodShelfText() {return codShelfText;}
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
+    public JButton getAddBtn() {
+        return this.addBtn;
     }
+
+    public JButton getDropBtn() {
+        return this.dropBtn;
+    }
+
+    public JButton getUpdateBtn() {
+        return this.updateBtn;
+    }
+
 }
