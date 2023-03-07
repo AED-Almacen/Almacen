@@ -7,9 +7,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class CtrlPiece implements ActionListener {
+public class CtrlPiece implements ActionListener, MouseListener {
     private final Piece piece;
     private final PieceQueries queries;
 
@@ -21,10 +23,9 @@ public class CtrlPiece implements ActionListener {
     }
 
     private void cleanText() {
-        this.piece.getIdText().setText("");
-        this.piece.getPriceText().setText("");
-        this.piece.getDescText().setText("");
-        this.piece.getCodTex().setText("");
+        this.piece.getPriceTxt().setText("");
+        this.piece.getDescTxt().setText("");
+        this.piece.getCodTxt().setText("");
     }
 
     private void readPieces() {
@@ -57,6 +58,7 @@ public class CtrlPiece implements ActionListener {
         this.piece.getDropBtn().addActionListener(this);
         this.piece.getUpdateBtn().addActionListener(this);
         this.piece.getSubPieceBtn().addActionListener(this);
+        this.piece.getTable().addMouseListener(this);
         this.readPieces();
     }
 
@@ -64,66 +66,83 @@ public class CtrlPiece implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.piece.getAddBtn()) {
             try {
-                float price = Float.parseFloat(piece.getPriceText().getText());
-                String desc = piece.getDescText().getText();
-                String codPiece = piece.getCodTex().getText();
+                float price = Float.parseFloat(piece.getPriceTxt().getText());
+                String desc = piece.getDescTxt().getText();
+                String codPiece = piece.getCodTxt().getText();
 
-                if (codPiece.equals("")) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al añadir pieza. La pieza debe tener precio y código.");
-                } else {
-                    this.queries.createPiece(price, desc, codPiece);
-                    this.readPieces();
-                }
+                this.queries.createPiece(price, desc, codPiece);
+                this.readPieces();
+
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Error al añadir pieza. La pieza debe tener precio y código.");
+                        "Error al añadir pieza. La pieza debe tener código y precio.");
             }
         } else if (e.getSource() == this.piece.getDropBtn()) {
             try {
-                int id = Integer.parseInt(piece.getIdText().getText());
+                int fila = this.piece.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.piece.getTable().getValueAt(fila, 0).toString());
 
-                if (this.queries.readPiece(id) == null) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al borrar pieza. El id no es correcto.");
-                } else {
-                    this.queries.deletePiece(id);
-                    this.readPieces();
-                }
+                this.queries.deletePiece(id);
+                this.readPieces();
 
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Error al borrar pieza. Debes especificar el id de la pieza a borrar.");
+                        "Error al borrar pieza. Debe seleccionar la pieza a borrar.");
             }
         } else if (e.getSource() == this.piece.getUpdateBtn()) {
             try {
-                int id = Integer.parseInt(piece.getIdText().getText());
-                float price = Float.parseFloat(piece.getPriceText().getText());
-                String desc = piece.getDescText().getText();
-                String codPiece = piece.getCodTex().getText();
+                int fila = this.piece.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.piece.getTable().getValueAt(fila, 0).toString());
 
-                if (codPiece.equals("")) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al añadir pieza. La pieza debe tener precio y código.");
-                } else if (this.queries.readPiece(id) == null)  {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al actualizar la pieza. El id no es correcto.");
-                } else {
-                    this.queries.updatePiece(id, price, desc, codPiece);
-                    this.readPieces();
-                }
+                float price = Float.parseFloat(piece.getPriceTxt().getText());
+                String desc = piece.getDescTxt().getText();
+                String codPiece = piece.getCodTxt().getText();
+
+                this.queries.updatePiece(id, price, desc, codPiece);
+                this.readPieces();
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Error al actualizar la pieza. Debes especificar el id de la pieza a actualizar.");
+                        "Error al actualizar la pieza. Debe seleccionar la pieza a actualizar y .");
             }
         } else if (e.getSource() == this.piece.getSubPieceBtn()) {
             try {
-                int id = Integer.parseInt(piece.getIdText().getText());
+                int fila = this.piece.getTable().getSelectedRow();
+                int id = Integer.parseInt(this.piece.getTable().getValueAt(fila, 0).toString());
+
                 new CtrlCompPieces(id);
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Error al encontrar la pieza. Debes especificar el id de la pieza para acceder a las subpiezas.");
+                        "Error al encontrar la pieza. Debe seleccionar la pieza para acceder a sus subpiezas.");
             }
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int fila = this.piece.getTable().getSelectedRow();
+
+        this.piece.getPriceTxt().setText(this.piece.getTable().getValueAt(fila, 1).toString());
+        this.piece.getDescTxt().setText(this.piece.getTable().getValueAt(fila, 2).toString());
+        this.piece.getCodTxt().setText(this.piece.getTable().getValueAt(fila, 3).toString());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
