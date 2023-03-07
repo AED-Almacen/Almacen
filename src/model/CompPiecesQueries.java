@@ -24,20 +24,20 @@ public class CompPiecesQueries {
         }
     }
 
-    public ArrayList<Piece> readCompPieces(int id) {
+    public ArrayList<CompPieces> readCompPieces(int id_piece) {
         Connection conn = ConnectionPool.getInstance().getConnection();
-        String sql = "SELECT * FROM pieza_comp INNER JOIN pieza on pieza_comp.id_pieza_comp = pieza.id WHERE id_pieza = ?";
+        String sql = "SELECT * FROM pieza_comp WHERE id_pieza = ?";
 
-        ArrayList<Piece> compPieces = new ArrayList<>();
+        ArrayList<CompPieces> compPieces = new ArrayList<>();
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, id_piece);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                compPieces.add(new Piece(rs.getInt("id"), rs.getFloat("precio"),
-                        rs.getString("descripcion"), rs.getString("cod_pieza")));
+                compPieces.add(new CompPieces(rs.getInt("id"), rs.getInt("id_pieza"),
+                        rs.getInt("id_pieza_comp")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
