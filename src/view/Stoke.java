@@ -4,53 +4,44 @@ import javax.swing.*;
 
 public class Stoke extends JFrame{
     private JPanel window;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JButton button1;
-    private JButton button2;
-    private JButton button3;
-    private JTextArea textArea1;
-    private JButton stokeButton;
+    private JComboBox pieceCombo;
+    private JComboBox shelfCombo;
+    private JTextField amountTxt;
+    private JButton addBtn;
+    private JButton dropBtn;
+    private JButton updateBtn;
+    private JTable table;
 
     public Stoke() {
         super();
         setContentPane(window);
     }
 
-    public JPanel getWindow() {
-        return window;
+    public JComboBox getPieceCombo() {
+        return this.pieceCombo;
     }
 
-    public JTextField getTextField1() {
-        return textField1;
+    public JComboBox getShelfCombo() {
+        return this.shelfCombo;
     }
 
-    public JTextField getTextField2() {
-        return textField2;
+    public JTextField getAmountTxt() {
+        return this.amountTxt;
     }
 
-    public JTextField getTextField3() {
-        return textField3;
+    public JButton getAddBtn() {
+        return this.addBtn;
     }
 
-    public JButton getButton1() {
-        return button1;
+    public JButton getDropBtn() {
+        return this.dropBtn;
     }
 
-    public JButton getButton2() {
-        return button2;
+    public JButton getUpdateBtn() {
+        return this.updateBtn;
     }
 
-    public JButton getButton3() {
-        return button3;
-    }
-
-    public JTextArea getTextArea1Stoke() {
-        return textArea1;
-    }
-
-    public JButton getStokeButton() {
-        return stokeButton;
+    public JTable getTable() {
+        return this.table;
     }
 }
