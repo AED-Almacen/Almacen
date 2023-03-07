@@ -102,7 +102,7 @@ public class CtrlPiece implements ActionListener, MouseListener {
                 this.readPieces();
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
-                        "Error al actualizar la pieza. Debe seleccionar la pieza a actualizar y .");
+                        "Error al actualizar la pieza. Debe seleccionar la pieza a actualizar y mantener un código.");
             }
         } else if (e.getSource() == this.piece.getSubPieceBtn()) {
             try {
