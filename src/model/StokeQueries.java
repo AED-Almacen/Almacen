@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class StokeQueries {
     public void createStoke(int amount, int idPiece, int idShelf) {
         Connection conn = ConnectionPool.getInstance().getConnection();
-        String sql = "INSERT INTO stoke (cantidad, id_pieza, id_estanterua) VALUES (?, ?, ?) ";
+        String sql = "INSERT INTO stoke (cantidad, id_pieza, id_estanteria) VALUES (?, ?, ?) ";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -53,11 +53,11 @@ public class StokeQueries {
         Connection conn = ConnectionPool.getInstance().getConnection();
         String sql = "SELECT * FROM stoke";
 
+        ArrayList<Stoke> stokes = new ArrayList<>();
+
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-
-            ArrayList<Stoke> stokes = new ArrayList<>();
 
             while (rs.next()) {
                 stokes.add(new Stoke(rs.getInt("id"), rs.getInt("cantidad"),
@@ -71,7 +71,7 @@ public class StokeQueries {
             ConnectionPool.getInstance().closeConnection(conn);
         }
 
-        return null;
+        return stokes;
     }
 
     public void updateStoke(int id, int amount, int idPiece, int idShelf) {
