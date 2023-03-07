@@ -4,10 +4,9 @@ import javax.swing.*;
 
 public class Piece extends JFrame {
     private JPanel window;
-    private JTextField idText;
-    private JTextField priceText;
-    private JTextField descText;
-    private JTextField codTex;
+    private JTextField priceTxt;
+    private JTextArea descTxt;
+    private JTextField codTxt;
     private JButton addBtn;
     private JButton dropBtn;
     private JButton updateBtn;
@@ -15,26 +14,21 @@ public class Piece extends JFrame {
     private JButton subPieceBtn;
     private JScrollPane ScrollPane;
 
-
     public Piece() {
         super();
         setContentPane(this.window);
     }
 
-    public JTextField getIdText() {
-        return idText;
+    public JTextField getPriceTxt() {
+        return this.priceTxt;
     }
 
-    public JTextField getPriceText() {
-        return priceText;
+    public JTextArea getDescTxt() {
+        return this.descTxt;
     }
 
-    public JTextField getDescText() {
-        return descText;
-    }
-
-    public JTextField getCodTex() {
-        return codTex;
+    public JTextField getCodTxt() {
+        return this.codTxt;
     }
 
     public JButton getAddBtn() {
