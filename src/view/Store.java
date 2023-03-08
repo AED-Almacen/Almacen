@@ -40,9 +40,9 @@ public class Store extends JFrame {
     }
 
     private void createUIComponents() {
-        btnWarehouse = new JButton("", new ImageIcon("/Users/ralu/IdeaProjects/Almacen/images/almacen.png"));
-        btnShelf = new JButton("", new ImageIcon("/Users/ralu/IdeaProjects/Almacen/images/estanteria.png"));
-        btnStoke = new JButton("", new ImageIcon("/Users/ralu/IdeaProjects/Almacen/images/stoke.png"));
-        btnPiece = new JButton("", new ImageIcon("/Users/ralu/IdeaProjects/Almacen/images/pieza.png"));
+        btnWarehouse = new JButton("", new ImageIcon("images/almacen.png"));
+        btnShelf = new JButton("", new ImageIcon("images/estanteria.png"));
+        btnStoke = new JButton("", new ImageIcon("images/stoke.png"));
+        btnPiece = new JButton("", new ImageIcon("images/pieza.png"));
     }
 }
