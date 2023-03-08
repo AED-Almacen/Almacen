@@ -11,7 +11,7 @@ public class SuperCtrl implements ActionListener {
     private void windowConfig() {
         this.store.setTitle("Acciones de Almacén");
         this.store.setLocationRelativeTo(null);
-        this.store.setSize(800, 400);
+        this.store.setSize(1000, 400);
         this.store.setVisible(true);
     }
 
