@@ -16,7 +16,7 @@ public class CtrlPiece implements ActionListener, MouseListener {
     private final PieceQueries queries;
 
     private void windowConfig() {
-        this.piece.setTitle("Piezas");
+        this.piece.setTitle("Pieza");
         this.piece.setLocationRelativeTo(null);
         this.piece.setSize(700, 400);
         this.piece.setVisible(true);
