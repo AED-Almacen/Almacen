@@ -47,6 +47,7 @@ public class CtrlPiece implements ActionListener, MouseListener {
         this.piece = new Piece();
 
         this.queries = new PieceQueries();
+        this.ctrlCompPieces = new CtrlCompPieces();
     }
 
     public Piece getPiece() {
@@ -118,8 +119,7 @@ public class CtrlPiece implements ActionListener, MouseListener {
                 int row = this.piece.getTable().getSelectedRow();
                 int id = Integer.parseInt(this.piece.getTable().getValueAt(row, 0).toString());
 
-                this.ctrlCompPieces = new CtrlCompPieces(id);
-                ctrlCompPieces.init();
+                this.ctrlCompPieces.init(id);
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
                         "Error al encontrar la pieza. Debe seleccionar la pieza para acceder a sus subpiezas.");

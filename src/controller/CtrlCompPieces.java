@@ -17,7 +17,7 @@ public class CtrlCompPieces implements ActionListener, MouseListener {
     private final CompPieces compPieces;
     private final CompPiecesQueries queries;
     private final PieceQueries pieceQueries;
-    private final int idPiece;
+    private int idPiece;
 
     private void readCompPieces() {
         ArrayList<model.CompPieces> compPieces = this.queries.readCompPieces(this.idPiece);
@@ -42,9 +42,8 @@ public class CtrlCompPieces implements ActionListener, MouseListener {
         ));
     }
 
-    public CtrlCompPieces(int idPiece) {
+    public CtrlCompPieces() {
         this.compPieces = new CompPieces();
-        this.idPiece = idPiece;
 
         this.queries = new CompPiecesQueries();
         this.pieceQueries = new PieceQueries();
@@ -54,7 +53,8 @@ public class CtrlCompPieces implements ActionListener, MouseListener {
         return compPieces;
     }
 
-    public void init() {
+    public void init(int id) {
+        this.idPiece = id;
         Piece mainPiece = this.pieceQueries.readPiece(this.idPiece);
         this.compPieces.setTitle("Pieza " + mainPiece.getId() + " - " + mainPiece.getCodPiece());
         this.compPieces.setLocationRelativeTo(null);
