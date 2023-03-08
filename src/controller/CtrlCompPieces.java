@@ -19,15 +19,6 @@ public class CtrlCompPieces implements ActionListener, MouseListener {
     private final PieceQueries pieceQueries;
     private final int idPiece;
 
-    private void windowConfig() {
-        Piece piece = this.pieceQueries.readPiece(this.idPiece);
-        this.compPieces.setTitle("Pieza " + piece.getId() + " - " + piece.getCodPiece());
-        this.compPieces.setLocationRelativeTo(null);
-        this.compPieces.setSize(500, 400);
-        this.compPieces.setVisible(true);
-    }
-
-
     private void readCompPieces() {
         ArrayList<model.CompPieces> compPieces = this.queries.readCompPieces(this.idPiece);
 
@@ -57,7 +48,23 @@ public class CtrlCompPieces implements ActionListener, MouseListener {
 
         this.queries = new CompPiecesQueries();
         this.pieceQueries = new PieceQueries();
-        this.windowConfig();
+    }
+
+    public CompPieces getCompPieces() {
+        return compPieces;
+    }
+
+    public void init() {
+        Piece mainPiece = this.pieceQueries.readPiece(this.idPiece);
+        this.compPieces.setTitle("Pieza " + mainPiece.getId() + " - " + mainPiece.getCodPiece());
+        this.compPieces.setLocationRelativeTo(null);
+        this.compPieces.setSize(500, 400);
+        this.compPieces.setVisible(true);
+
+        this.compPieces.getAddBtn().addActionListener(this);
+        this.compPieces.getUpdateBtn().addActionListener(this);
+        this.compPieces.getDropBtn().addActionListener(this);
+        this.compPieces.getTable().addMouseListener(this);
 
         this.readCompPieces();
         ArrayList<Piece> pieces = pieceQueries.readPieces();
@@ -65,11 +72,6 @@ public class CtrlCompPieces implements ActionListener, MouseListener {
         for (Piece piece : pieces) {
             this.compPieces.getPiecesCombo().addItem(piece.getId() + " - " + piece.getCodPiece());
         }
-
-        this.compPieces.getAddBtn().addActionListener(this);
-        this.compPieces.getUpdateBtn().addActionListener(this);
-        this.compPieces.getDropBtn().addActionListener(this);
-        this.compPieces.getTable().addMouseListener(this);
     }
 
     @Override
