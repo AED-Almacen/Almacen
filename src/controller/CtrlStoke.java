@@ -17,13 +17,6 @@ public class CtrlStoke implements ActionListener, MouseListener {
     private  final PieceQueries pieceQueries;
     private final ShelfQueries shelfQueries;
 
-    private void windowConfig() {
-        this.stoke.setTitle("Stoke");
-        this.stoke.setLocationRelativeTo(null);
-        this.stoke.setSize(650, 400);
-        this.stoke.setVisible(true);
-    }
-
     private void cleanText() {
         this.stoke.getAmountTxt().setText("");
     }
@@ -56,11 +49,26 @@ public class CtrlStoke implements ActionListener, MouseListener {
 
     public CtrlStoke() {
         this.stoke = new Stoke();
-        windowConfig();
 
         this.queries = new StokeQueries();
         this.pieceQueries = new PieceQueries();
         this.shelfQueries = new ShelfQueries();
+    }
+
+    public Stoke getStoke() {
+        return stoke;
+    }
+
+    public void init() {
+        this.stoke.setTitle("Stoke");
+        this.stoke.setLocationRelativeTo(null);
+        this.stoke.setSize(650, 400);
+        this.stoke.setVisible(true);
+
+        this.stoke.getAddBtn().addActionListener(this);
+        this.stoke.getUpdateBtn().addActionListener(this);
+        this.stoke.getDropBtn().addActionListener(this);
+        this.stoke.getTable().addMouseListener(this);
 
         this.readStokes();
 
@@ -74,11 +82,6 @@ public class CtrlStoke implements ActionListener, MouseListener {
         for (Shelf shelf : shelves) {
             this.stoke.getShelfCombo().addItem(shelf.getId() + " - " + shelf.getCodShelf());
         }
-
-        this.stoke.getAddBtn().addActionListener(this);
-        this.stoke.getUpdateBtn().addActionListener(this);
-        this.stoke.getDropBtn().addActionListener(this);
-        this.stoke.getTable().addMouseListener(this);
     }
 
     @Override

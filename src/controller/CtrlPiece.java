@@ -14,13 +14,7 @@ import java.util.ArrayList;
 public class CtrlPiece implements ActionListener, MouseListener {
     private final Piece piece;
     private final PieceQueries queries;
-
-    private void windowConfig() {
-        this.piece.setTitle("Pieza");
-        this.piece.setLocationRelativeTo(null);
-        this.piece.setSize(700, 400);
-        this.piece.setVisible(true);
-    }
+    private CtrlCompPieces ctrlCompPieces;
 
     private void cleanText() {
         this.piece.getPriceTxt().setText("");
@@ -51,9 +45,24 @@ public class CtrlPiece implements ActionListener, MouseListener {
 
     public CtrlPiece() {
         this.piece = new Piece();
-        windowConfig();
 
         this.queries = new PieceQueries();
+    }
+
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public CtrlCompPieces getCtrlCompPieces() {
+        return ctrlCompPieces;
+    }
+
+    public void init() {
+        this.piece.setTitle("Pieza");
+        this.piece.setLocationRelativeTo(null);
+        this.piece.setSize(700, 400);
+        this.piece.setVisible(true);
+
         this.piece.getAddBtn().addActionListener(this);
         this.piece.getDropBtn().addActionListener(this);
         this.piece.getUpdateBtn().addActionListener(this);
@@ -109,7 +118,8 @@ public class CtrlPiece implements ActionListener, MouseListener {
                 int row = this.piece.getTable().getSelectedRow();
                 int id = Integer.parseInt(this.piece.getTable().getValueAt(row, 0).toString());
 
-                new CtrlCompPieces(id);
+                this.ctrlCompPieces = new CtrlCompPieces(id);
+                ctrlCompPieces.init();
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
                         "Error al encontrar la pieza. Debe seleccionar la pieza para acceder a sus subpiezas.");

@@ -12,19 +12,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CtrlShelf implements ActionListener, MouseListener {
     private final Shelf shelf;
     private final ShelfQueries queries;
     private final WarehouseQueries warehouseQueries;
-
-    private void windowConfig() {
-        this.shelf.setTitle("Estantería");
-        this.shelf.setLocationRelativeTo(null);
-        this.shelf.setSize(700, 400);
-        this.shelf.setVisible(true);
-    }
 
     private void cleanText() {
         this.shelf.getCodTxt().setText("");
@@ -57,21 +49,32 @@ public class CtrlShelf implements ActionListener, MouseListener {
     }
     public CtrlShelf() {
         this.shelf = new view.Shelf();
-        windowConfig();
 
         this.queries = new ShelfQueries();
         this.warehouseQueries = new WarehouseQueries();
+    }
 
-        this.readShelves();
-        ArrayList<Warehouse> warehouses = warehouseQueries.readWarehouses();
-        for (Warehouse warehouse : warehouses) {
-            this.shelf.getWarehouseCombo().addItem(warehouse.getId() + " - " + warehouse.getDesc());
-        }
+    public Shelf getShelf() {
+        return shelf;
+    }
+
+    public void init() {
+        this.shelf.setTitle("Estantería");
+        this.shelf.setLocationRelativeTo(null);
+        this.shelf.setSize(700, 400);
+        this.shelf.setVisible(true);
 
         this.shelf.getAddBtn().addActionListener(this);
         this.shelf.getDropBtn().addActionListener(this);
         this.shelf.getUpdateBtn().addActionListener(this);
         this.shelf.getTable().addMouseListener(this);
+
+        this.readShelves();
+
+        ArrayList<Warehouse> warehouses = warehouseQueries.readWarehouses();
+        for (Warehouse warehouse : warehouses) {
+            this.shelf.getWarehouseCombo().addItem(warehouse.getId() + " - " + warehouse.getDesc());
+        }
     }
 
     @Override

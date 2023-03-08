@@ -19,10 +19,6 @@ public class Store extends JFrame {
         return this.window;
     }
 
-    public JPanel getNav() {
-        return this.nav;
-    }
-
     public JButton getBtnWarehouse() {
         return this.btnWarehouse;
     }
